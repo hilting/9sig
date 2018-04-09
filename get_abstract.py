@@ -16,11 +16,17 @@ def main():
     for i in f.readlines():
         idlist.append(i.strip())
     f.close()
-    url = baseURL + idlist[0] + "&retmode=xml"
-    result = get_xml(url)
-    element = fromstring(result.read())
-    for e in element.findall(".//AbstractText"):
-        print(e.text)#論文要旨を表示
+    for i in idlist:
+        url = baseURL + i + "&retmode=xml"
+        result = get_xml(url)
+        element = fromstring(result.read())
+        for e in element.findall(".//AbstractText"):
+            #print(e.text)#論文要旨を表示
+            filename = "document" + i + "_" + keyword + ".txt"
+            f2 = open(filename, "a") 
+            f2.write(e.text)
+            f2.write("\n")
+            f2.close()
 
 if __name__ == "__main__":
     main()
