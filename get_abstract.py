@@ -17,10 +17,14 @@ def main():
         idlist.append(i.strip())
     f.close()
     for i in idlist:
+        print(i)
+        f4 = open("ids", "a")
+        f4.write(i + "\n")
+        f4.close()
         filename = "document" + i + "_" + keyword + ".txt"
         url = baseURL + i + "&retmode=xml"
         result = get_xml(url)
-        re_strip = result.read().decode().replace("<i>","").replace("</i>","").replace("<sup>","").replace("</sup>","").replace("<sub>","").replace("</sub>","")
+        re_strip = result.read().decode().replace("<i>","").replace("</i>","").replace("<sup>","").replace("</sup>","").replace("<sub>","").replace("</sub>","").replace("<b>","").replace("</b>","")
         f3 = open("raw_"+filename, "a")
         f3.write(re_strip)
         f3.close()
