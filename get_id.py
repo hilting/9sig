@@ -2,8 +2,8 @@
 import urllib.request
 from xml.etree.ElementTree import *
 
-keyword = "protein"
-baseURL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmax=1000&term="
+keyword = "all[filter]"
+baseURL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmax=28389011&term="
 
 def get_id(url):#論文IDを取得する
     result = urllib.request.urlopen(url)
@@ -14,11 +14,8 @@ def main():
     result = get_id(url)
     element = fromstring(result.read())
     filename = "idlist_"+keyword+".txt"
-    f = open(filename, "w")
     for e in element.findall(".//Id"):
-        f.write(e.text)
-        f.write("\n")
-    f.close()
+        print (e.text)
 
 if __name__ == "__main__":
     main()
